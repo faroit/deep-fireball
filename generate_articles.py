@@ -20,7 +20,7 @@ import sys
 import pandas as pd
 
 df = pd.read_pickle('2002-2016.pandas')
-text = str.join(' ', df.title.tolist())
+text = str.join(' ', df.text.tolist())
 
 print('corpus length:', len(text))
 
@@ -30,7 +30,6 @@ char_indices = dict((c, i) for i, c in enumerate(chars))
 indices_char = dict((i, c) for i, c in enumerate(chars))
 
 # cut the text in semi-redundant sequences of maxlen characters
-
 maxlen = 20
 step = 3
 sentences = []
