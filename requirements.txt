@@ -1,0 +1,7 @@
+bs4
+numpy
+scipy
+pandas
+theano
+keras
+yahoo_finance

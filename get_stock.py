@@ -1,6 +1,7 @@
 from datetime import datetime
 import pandas as pd
 import argparse
+from yahoo_finance import Share
 
 """Fetch apple stock
 
@@ -9,9 +10,7 @@ import argparse
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(
-        description='Fetch all daringfireball articles since 2002'
-    )
+    parser = argparse.ArgumentParser()
 
     parser.add_argument('output')
     args = parser.parse_args()
@@ -22,8 +21,6 @@ if __name__ == "__main__":
             'close',
         )
     )
-
-    from yahoo_finance import Share
 
     apple_stock = Share('AAPL')
     stock_data = apple_stock.get_historical('2002-01-01', '2017-01-01')
