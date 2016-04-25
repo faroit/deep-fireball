@@ -19,7 +19,7 @@ import random
 import sys
 import pandas as pd
 
-df = pd.read_pickle('2002-2016.pandas')
+df = pd.read_pickle('articles.pandas')
 text = str.join(' ', df.text.tolist())
 
 print('corpus length:', len(text))
@@ -30,7 +30,7 @@ char_indices = dict((c, i) for i, c in enumerate(chars))
 indices_char = dict((i, c) for i, c in enumerate(chars))
 
 # cut the text in semi-redundant sequences of maxlen characters
-maxlen = 20
+maxlen = 15
 step = 3
 sentences = []
 next_chars = []
@@ -59,6 +59,8 @@ model.add(Dense(len(chars)))
 model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
+json_string = model.to_json()
+open('model.json', 'w').write(json_string)
 
 
 def sample(a, temperature=1.0):
@@ -75,6 +77,7 @@ for iteration in range(1, 60):
     model.fit(X, y, batch_size=128, nb_epoch=1)
 
     start_index = random.randint(0, len(text) - maxlen - 1)
+    model.save_weights('weights.h5')
 
     for diversity in [0.2, 0.5, 1.0, 1.2]:
         print()
